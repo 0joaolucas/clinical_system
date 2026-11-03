@@ -1,0 +1,15 @@
+C:\Users\User10\Desktop\Dev\ClinicaApi\Application\bin\Debug\net10.0\ClinicaApi.Application.deps.json
+C:\Users\User10\Desktop\Dev\ClinicaApi\Application\bin\Debug\net10.0\ClinicaApi.Application.dll
+C:\Users\User10\Desktop\Dev\ClinicaApi\Application\bin\Debug\net10.0\ClinicaApi.Application.pdb
+C:\Users\User10\Desktop\Dev\ClinicaApi\Application\bin\Debug\net10.0\ClinicaApi.Domain.dll
+C:\Users\User10\Desktop\Dev\ClinicaApi\Application\bin\Debug\net10.0\ClinicaApi.Domain.pdb
+C:\Users\User10\Desktop\Dev\ClinicaApi\Application\obj\Debug\net10.0\ClinicaApi.Application.csproj.AssemblyReference.cache
+C:\Users\User10\Desktop\Dev\ClinicaApi\Application\obj\Debug\net10.0\ClinicaApi.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User10\Desktop\Dev\ClinicaApi\Application\obj\Debug\net10.0\ClinicaApi.Application.AssemblyInfoInputs.cache
+C:\Users\User10\Desktop\Dev\ClinicaApi\Application\obj\Debug\net10.0\ClinicaApi.Application.AssemblyInfo.cs
+C:\Users\User10\Desktop\Dev\ClinicaApi\Application\obj\Debug\net10.0\ClinicaApi.Application.csproj.CoreCompileInputs.cache
+C:\Users\User10\Desktop\Dev\ClinicaApi\Application\obj\Debug\net10.0\ClinicaA.ED89E168.Up2Date
+C:\Users\User10\Desktop\Dev\ClinicaApi\Application\obj\Debug\net10.0\ClinicaApi.Application.dll
+C:\Users\User10\Desktop\Dev\ClinicaApi\Application\obj\Debug\net10.0\refint\ClinicaApi.Application.dll
+C:\Users\User10\Desktop\Dev\ClinicaApi\Application\obj\Debug\net10.0\ClinicaApi.Application.pdb
+C:\Users\User10\Desktop\Dev\ClinicaApi\Application\obj\Debug\net10.0\ref\ClinicaApi.Application.dll

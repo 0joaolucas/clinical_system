@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/ClinicaApi.API/">
+    <Project Path="Api/ClinicaApi.Api.csproj" />
+  </Folder>
+  <Project Path="Application/ClinicaApi.Application.csproj" />
+  <Project Path="Domain/ClinicaApi.Domain.csproj" />
+  <Project Path="Infrastructure/ClinicaApi.Infrastructure.csproj" />
+</Solution>
