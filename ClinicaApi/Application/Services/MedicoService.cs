@@ -397,143 +397,105 @@ public class MedicoService : IMedicoService
         };
     }
 
-    public async Task<ResultWrapper<bool>> UpdateAsync(Medico medico)
+
+    public async Task<ResultWrapper<bool>> UpdateAsync(MedicoDto medicoDto)
+{
+    if (medicoDto == null)
     {
-        if (medico == null)
-        {
-            return new ResultWrapper<bool>
-            {
-                Success = false,
-                Message = "Não foi possível realizar a operação.",
-                Data = false,
-                Errors = new List<string>
-                {
-                    "Médico é obrigatório."
-                }
-            };
-        }
-
-        if (medico.IdMedico <= 0)
-        {
-            return new ResultWrapper<bool>
-            {
-                Success = false,
-                Message = "Não foi possível realizar a operação.",
-                Data = false,
-                Errors = new List<string>
-                {
-                    "ID inválido."
-                }
-            };
-        }
-
-        if (string.IsNullOrWhiteSpace(medico.Nome))
-        {
-            return new ResultWrapper<bool>
-            {
-                Success = false,
-                Message = "Não foi possível realizar a operação.",
-                Data = false,
-                Errors = new List<string>
-                {
-                    "Nome do médico é obrigatório."
-                }
-            };
-        }
-
-        if (string.IsNullOrWhiteSpace(medico.Cpf))
-        {
-            return new ResultWrapper<bool>
-            {
-                Success = false,
-                Message = "Não foi possível realizar a operação.",
-                Data = false,
-                Errors = new List<string>
-                {
-                    "CPF é obrigatório."
-                }
-            };
-        }
-
-        if (string.IsNullOrWhiteSpace(medico.Crm))
-        {
-            return new ResultWrapper<bool>
-            {
-                Success = false,
-                Message = "Não foi possível realizar a operação.",
-                Data = false,
-                Errors = new List<string>
-                {
-                    "CRM é obrigatório."
-                }
-            };
-        }
-
-        var medicoExistente =
-            await _medicoRepository.GetByIdAsync(medico.IdMedico);
-
-        if (medicoExistente == null)
-        {
-            return new ResultWrapper<bool>
-            {
-                Success = false,
-                Message = "Não foi possível realizar a operação.",
-                Data = false,
-                Errors = new List<string>
-                {
-                    "Médico não encontrado."
-                }
-            };
-        }
-
-        var medicoPorCpf =
-            await _medicoRepository.GetByCpfAsync(medico.Cpf);
-
-        if (medicoPorCpf != null && medicoPorCpf.IdMedico != medico.IdMedico)
-        {
-            return new ResultWrapper<bool>
-            {
-                Success = false,
-                Message = "Não foi possível realizar a operação.",
-                Data = false,
-                Errors = new List<string>
-                {
-                    "Já existe outro médico cadastrado com este CPF."
-                }
-            };
-        }
-
-        var medicoPorCrm = await _medicoRepository.GetByCrmAsync(medico.Crm);
-
-        if (medicoPorCrm != null && medicoPorCrm.IdMedico != medico.IdMedico)
-        {
-            return new ResultWrapper<bool>
-            {
-                Success = false,
-                Message = "Não foi possível realizar a operação.",
-                Data = false,
-                Errors = new List<string>
-                {
-                    "Já existe outro médico cadastrado com este CRM."
-                }
-            };
-        }
-
-        await _medicoRepository.UpdateAsync(medico);
-
-        _cache.Remove(CacheKey);
-
         return new ResultWrapper<bool>
         {
-            Success = true,
-            Message = "Médico atualizado com sucesso.",
-            Data = true,
-            Errors = new List<string>()
+            Success = false,
+            Message = "Não foi possível realizar a operação.",
+            Data = false,
+            Errors = new List<string> { "Médico é obrigatório." }
         };
     }
 
-    public Task<ResultWrapper<bool>> UpdateAsync(MedicoDto medicoDto)
+    if (medicoDto.IdMedico <= 0)
     {
-        throw new NotImplementedException();
+        return new ResultWrapper<bool>
+        {
+            Success = false,
+            Message = "Não foi possível realizar a operação.",
+            Data = false,
+            Errors = new List<string> { "ID inválido." }
+        };
     }
+
+    if (string.IsNullOrWhiteSpace(medicoDto.Nome) ||
+        string.IsNullOrWhiteSpace(medicoDto.Cpf) ||
+        string.IsNullOrWhiteSpace(medicoDto.CRM))
+    {
+        return new ResultWrapper<bool>
+        {
+            Success = false,
+            Message = "Não foi possível realizar a operação.",
+            Data = false,
+            Errors = new List<string> { "Nome, CPF e CRM são obrigatórios." }
+        };
+    }
+
+    // Busca o médico que será atualizado
+    var medicoExistente = await _medicoRepository.GetByIdAsync(medicoDto.IdMedico);
+
+    if (medicoExistente == null)
+    {
+        return new ResultWrapper<bool>
+        {
+            Success = false,
+            Message = "Não foi possível realizar a operação.",
+            Data = false,
+            Errors = new List<string> { "Médico não encontrado." }
+        };
+    }
+
+    // Verifica se o CPF já pertence a outro médico
+    var medicoPorCpf = await _medicoRepository.GetByCpfAsync(medicoDto.Cpf);
+
+    if (medicoPorCpf != null && medicoPorCpf.IdMedico != medicoDto.IdMedico)
+    {
+        return new ResultWrapper<bool>
+        {
+            Success = false,
+            Message = "Não foi possível realizar a operação.",
+            Data = false,
+            Errors = new List<string> { "Já existe outro médico cadastrado com este CPF." }
+        };
+    }
+
+    // Verifica se o CRM já pertence a outro médico
+    var medicoPorCrm = await _medicoRepository.GetByCrmAsync(medicoDto.CRM);
+
+    if (medicoPorCrm != null && medicoPorCrm.IdMedico != medicoDto.IdMedico)
+    {
+        return new ResultWrapper<bool>
+        {
+            Success = false,
+            Message = "Não foi possível realizar a operação.",
+            Data = false,
+            Errors = new List<string> { "Já existe outro médico cadastrado com este CRM." }
+        };
+    }
+
+    // Atualiza a própria entidade que já está sendo rastreada
+    medicoExistente.Nome = medicoDto.Nome;
+    medicoExistente.Cpf = medicoDto.Cpf;
+    medicoExistente.Crm = medicoDto.CRM;
+    medicoExistente.Especialidade = medicoDto.Especialidade;
+    medicoExistente.Telefone = medicoDto.Telefone;
+    medicoExistente.Email = medicoDto.Email;
+    medicoExistente.Funcao = medicoDto.Funcao;
+
+    await _medicoRepository.UpdateAsync(medicoExistente);
+
+    _cache.Remove(CacheKey);
+
+    return new ResultWrapper<bool>
+    {
+        Success = true,
+        Message = "Médico atualizado com sucesso.",
+        Data = true,
+        Errors = new List<string>()
+    };
+}
 }

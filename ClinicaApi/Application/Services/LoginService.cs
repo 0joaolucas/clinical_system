@@ -60,8 +60,6 @@ public class LoginService : ILoginService
         var claims = new[]
         {
             new Claim(ClaimTypes.NameIdentifier, login.Id.ToString()),
-            new Claim(ClaimTypes.Name, login.Nome),
-            new Claim("cpf", login.Cpf),
             new Claim(ClaimTypes.Role, login.Funcao)
         };
 

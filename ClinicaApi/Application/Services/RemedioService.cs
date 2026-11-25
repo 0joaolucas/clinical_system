@@ -106,7 +106,10 @@ public class RemedioService : IRemedioService
         if (porNome != null && porNome.Id != remedio.Id)
             return Erro<bool>("Já existe outro remédio cadastrado com este nome.", false);
 
-        await _remedioRepository.UpdateAsync(remedio);
+        existente.Nome = remedio.Nome;
+        existente.Quantidade = remedio.Quantidade;
+
+        await _remedioRepository.UpdateAsync(existente);
 
         _cache.Remove(CacheKey);
 

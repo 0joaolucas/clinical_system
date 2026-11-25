@@ -293,7 +293,18 @@ public class PacienteService : IPacienteService
             };
         }
 
-        await _pacienteRepository.UpdateAsync(paciente);
+        pacienteExistente.Nome = paciente.Nome;
+        pacienteExistente.Cpf = paciente.Cpf;
+        pacienteExistente.DataNasc = paciente.DataNasc;
+        pacienteExistente.Sexo = paciente.Sexo;
+        pacienteExistente.Telefone = paciente.Telefone;
+        pacienteExistente.Email = paciente.Email;
+        pacienteExistente.Cidade = paciente.Cidade;
+        pacienteExistente.Bairro = paciente.Bairro;
+        pacienteExistente.Rua = paciente.Rua;
+        pacienteExistente.Historico = paciente.Historico;
+
+        await _pacienteRepository.UpdateAsync(pacienteExistente);
 
         _cache.Remove(CacheKey);
 

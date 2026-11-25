@@ -154,7 +154,14 @@ public class ConsultaService : IConsultaService
         if (paciente == null)
             return Erro<bool>("Paciente não encontrado.", false);
 
-        await _consultaRepository.UpdateAsync(consulta);
+        existente.IdPaciente = consulta.IdPaciente;
+        existente.IdMedico = consulta.IdMedico;
+        existente.DataConsulta = consulta.DataConsulta;
+        existente.HoraConsulta = consulta.HoraConsulta;
+        existente.TipoConsulta = consulta.TipoConsulta;
+        existente.Observacao = consulta.Observacao;
+
+        await _consultaRepository.UpdateAsync(existente);
 
         _cache.Remove(CacheKey);
 

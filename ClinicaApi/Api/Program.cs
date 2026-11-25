@@ -19,6 +19,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Controllers
 builder.Services.AddControllers();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("VueApp", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 // Banco de dados
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(
@@ -81,6 +92,10 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
+
+// Authentication e autorização
+// CORS
+app.UseCors("VueApp");
 
 // Authentication e autorização
 app.UseAuthentication();

@@ -1,8 +1,10 @@
 using ClinicaApi.Application.Interfaces.Services;
+using ClinicaApi.Application.DTOs.Auth;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicaApi.Api.Controllers;
 
+[ApiController]
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
@@ -14,11 +16,14 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromQuery] string cpf, [FromQuery] string senha)
+    public async Task<IActionResult> Login([FromBody] LoginRequestDTO request)
     {
-        var resultado = await _loginService.LoginAsync(cpf, senha);
+        var resultado = await _loginService.LoginAsync(
+            request.Cpf,
+            request.Senha
+        );
 
-        if(!resultado.Success)
+        if (!resultado.Success)
             return Unauthorized(resultado);
 
         return Ok(resultado);

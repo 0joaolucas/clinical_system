@@ -48,9 +48,21 @@ public class RecepcionistaRepository : IRecepcionistaRepository
         return await _context.Recepcionistas.FirstOrDefaultAsync(r => r.Id == id);
     }
 
-    public async Task UpdateAsync(Recepcionista recepcionista)
-    {
-        _context.Recepcionistas.Update(recepcionista);
+    public async Task UpdateAsync(Recepcionista recepcionista){
+
+        var recepcionistaExistente = await _context.Recepcionistas
+            .FirstOrDefaultAsync(r => r.Id == recepcionista.Id);
+
+        if (recepcionistaExistente == null)
+        {
+            return;
+        }
+
+        recepcionistaExistente.Nome = recepcionista.Nome;
+        recepcionistaExistente.Cpf = recepcionista.Cpf;
+        recepcionistaExistente.Telefone = recepcionista.Telefone;
+        recepcionistaExistente.Email = recepcionista.Email;
+
         await _context.SaveChangesAsync();
     }
 }

@@ -149,7 +149,7 @@ public class RecepcionistaService : IRecepcionistaService
         if (string.IsNullOrWhiteSpace(recepcionista.Cpf))
             return Erro<bool>("CPF é obrigatório.", false);
 
-        var existente =await _recepcionistaRepository.GetByIdAsync(recepcionista.Id);
+        var existente = await _recepcionistaRepository.GetByIdAsync(recepcionista.Id);
 
         if (existente == null)
             return Erro<bool>("Recepcionista não encontrado.", false);
@@ -159,6 +159,11 @@ public class RecepcionistaService : IRecepcionistaService
         if (porCpf != null && porCpf.Id != recepcionista.Id)
             return Erro<bool>("Já existe outro recepcionista cadastrado com este CPF.",
                 false);
+
+        existente.Cpf = recepcionista.Cpf;
+        existente.Email = recepcionista.Email;
+        existente.Nome = recepcionista.Nome;
+        existente.Telefone = recepcionista.Telefone;
 
         await _recepcionistaRepository.UpdateAsync(recepcionista);
         _cache.Remove(CacheKey);

@@ -164,7 +164,14 @@ public class TransacaoService : ITransacaoService
         if (remedio == null)
             return Erro<bool>("Remédio não encontrado.", false);
 
-        await _transacaoRepository.UpdateAsync(transacao);
+        // Atualiza os campos da entidade que já está sendo rastreada
+        existente.IdPaciente = transacao.IdPaciente;
+        existente.IdRemedio = transacao.IdRemedio;
+        existente.Quantidade = transacao.Quantidade;
+        existente.Valor = transacao.Valor;
+        existente.DataTransacao = transacao.DataTransacao;
+
+        await _transacaoRepository.UpdateAsync(existente);
 
         return Sucesso(true, "Transação atualizada com sucesso.");
     }

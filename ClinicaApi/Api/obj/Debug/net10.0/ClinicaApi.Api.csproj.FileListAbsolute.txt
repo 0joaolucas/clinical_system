@@ -134,3 +134,4 @@ C:\Users\User10\Desktop\Dev\ClinicaApi\Api\obj\Debug\net10.0\refint\ClinicaApi.A
 C:\Users\User10\Desktop\Dev\ClinicaApi\Api\obj\Debug\net10.0\ClinicaApi.Api.pdb
 C:\Users\User10\Desktop\Dev\ClinicaApi\Api\obj\Debug\net10.0\ClinicaApi.Api.genruntimeconfig.cache
 C:\Users\User10\Desktop\Dev\ClinicaApi\Api\obj\Debug\net10.0\ref\ClinicaApi.Api.dll
+C:\Users\User10\Desktop\Dev\ClinicaApi\Api\obj\Debug\net10.0\ClinicaApi.Api.sourcelink.json
